@@ -1,0 +1,90 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: key-service
+  namespace: k8sdeploy
+  labels:
+    name: key-service
+    app: key-service
+spec:
+  replicas: 2
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: key-service
+  template:
+    metadata:
+      labels:
+        app: key-service
+        name: key-service
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: key-service
+          image: containers.chewedfeed.com/k8sdeploy/key-service:latest
+          imagePullPolicy: Always
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3000
+          ports:
+            - containerPort: 3000
+              name: http
+            - containerPort: 8001
+              name: grpc
+          env:
+            - name: DEVELOPMENT
+              value: "false"
+            - name: VAULT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: backend-vault-token
+                  key: token
+            - name: MONGO_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: key-service-secrets
+                  key: MONGO_HOST
+            - name: MONGO_USER
+              valueFrom:
+                secretKeyRef:
+                  name: key-service-secrets
+                  key: MONGO_USER
+            - name: MONGO_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: key-service-secrets
+                  key: MONGO_PASS
+            - name: ONE_PASSWORD_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: key-service-secrets
+                  key: ONE_PASSWORD_PATH
+            - name: SERVICE_NAME
+              value: key-service
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: key-service
+  namespace: k8sdeploy
+  labels:
+    app: key-service
+    name: key-service
+spec:
+  ports:
+    - port: 3000
+      protocol: TCP
+      targetPort: 3000
+      name: http
+    - port: 8001
+      protocol: TCP
+      targetPort: 8001
+      name: grpc
+  selector:
+    app: key-service

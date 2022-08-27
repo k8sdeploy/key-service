@@ -1,0 +1,20 @@
+### Create GRPC
+GRPC localhost:8001/key.v1.KeyService/Create
+{
+  "key": "key1",
+  "user_id": user_id,
+}
+
+### Get GRPC
+GRPC localhost:8001/key.v1.KeyService/Get
+{
+  "key": dev.key,
+  "user_id": dev.user_id,
+}
+
+### Valid
+GRPC localhost:8001/key.v1.KeyService/Validate
+{
+  "key": "bob"
+  "user_id": "alice"
+}
