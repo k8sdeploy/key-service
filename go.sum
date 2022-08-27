@@ -166,6 +166,8 @@ github.com/json-iterator/go v1.1.9/go.mod h1:KdQUCv79m/52Kvf8AW2vK1V8akMuk1QjK/u
 github.com/julienschmidt/httprouter v1.2.0/go.mod h1:SYymIcj16QtmaHHD7aYtjjsJG7VTCxuUUipMqKk8s4w=
 github.com/k8sdeploy/protos v0.0.1 h1:t6ydezMdxr8JytdVJnzg8JhAFG/z0MGdAQezdViYgzQ=
 github.com/k8sdeploy/protos v0.0.1/go.mod h1:LPR4MQqBAgOpywLfSCHlnEpuD5JqXIjhJrJ4U1cDKAs=
+github.com/k8sdeploy/protos v0.0.2 h1:eQjwKs0aO5rqPr96LYWoNrRz2KT5hxQNewS1iICrAPU=
+github.com/k8sdeploy/protos v0.0.2/go.mod h1:LPR4MQqBAgOpywLfSCHlnEpuD5JqXIjhJrJ4U1cDKAs=
 github.com/keloran/go-healthcheck v1.2.0 h1:cm8HkEXK7V+qiHAPTIyz6RdatRIYyPU+WwR60jh+mMg=
 github.com/keloran/go-healthcheck v1.2.0/go.mod h1:y/BX0zm3gVij5D9eyFW1dlF2i0LJ1tQszRreVnwzejM=
 github.com/keloran/go-probe v1.0.0 h1:OAO7f71lRJIz+rF7iGAeBj4i86NaUazL8DaVf9dVJGU=

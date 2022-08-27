@@ -56,7 +56,6 @@ func (k *Key) GetKeys(n int) (*ResponseItem, error) {
 	if err != nil {
 		return nil, err
 	}
-	timerKey, err := k.GenerateServiceKey(n)
 	if err != nil {
 		return nil, err
 	}

@@ -24,14 +24,14 @@ func (s *Server) Create(c context.Context, r *pb.CreateRequest) (*pb.KeyResponse
 	if r.UserId == "" {
 		bugLog.Info(MissingUserID)
 		return &pb.KeyResponse{
-			Status: MissingUserID,
+			Status: pointerutil.StringPtr(MissingUserID),
 		}, nil
 	}
 
 	if r.ServiceKey == "" {
 		bugLog.Info(MissingServiceKey)
 		return &pb.KeyResponse{
-			Status: MissingServiceKey,
+			Status: pointerutil.StringPtr(MissingServiceKey),
 		}, nil
 	}
 
@@ -39,7 +39,7 @@ func (s *Server) Create(c context.Context, r *pb.CreateRequest) (*pb.KeyResponse
 	if !k.ValidateServiceKey(r.ServiceKey) {
 		bugLog.Info(InvalidServiceKey)
 		return &pb.KeyResponse{
-			Status: InvalidServiceKey,
+			Status: pointerutil.StringPtr(InvalidServiceKey),
 		}, nil
 	}
 
@@ -48,7 +48,7 @@ func (s *Server) Create(c context.Context, r *pb.CreateRequest) (*pb.KeyResponse
 		bugLog.Info(err)
 		status := "internal error, 1"
 		return &pb.KeyResponse{
-			Status: status,
+			Status: pointerutil.StringPtr(status),
 		}, nil
 	}
 
@@ -72,7 +72,7 @@ func (s *Server) Create(c context.Context, r *pb.CreateRequest) (*pb.KeyResponse
 		bugLog.Info(err)
 		status := "internal error, 2"
 		return &pb.KeyResponse{
-			Status: status,
+			Status: pointerutil.StringPtr(status),
 		}, nil
 	}
 
@@ -88,14 +88,14 @@ func (s *Server) Get(c context.Context, r *pb.GetRequest) (*pb.KeyResponse, erro
 	if r.UserId == "" {
 		bugLog.Info(MissingUserID)
 		return &pb.KeyResponse{
-			Status: MissingUserID,
+			Status: pointerutil.StringPtr(MissingUserID),
 		}, nil
 	}
 
 	if r.ServiceKey == "" {
 		bugLog.Info(MissingServiceKey)
 		return &pb.KeyResponse{
-			Status: MissingServiceKey,
+			Status: pointerutil.StringPtr(MissingServiceKey),
 		}, nil
 	}
 
@@ -103,7 +103,7 @@ func (s *Server) Get(c context.Context, r *pb.GetRequest) (*pb.KeyResponse, erro
 	if !k.ValidateServiceKey(r.ServiceKey) {
 		bugLog.Info(InvalidServiceKey)
 		return &pb.KeyResponse{
-			Status: InvalidServiceKey,
+			Status: pointerutil.StringPtr(InvalidServiceKey),
 		}, nil
 	}
 
@@ -112,7 +112,7 @@ func (s *Server) Get(c context.Context, r *pb.GetRequest) (*pb.KeyResponse, erro
 		bugLog.Info(err)
 		status := "internal error, 3"
 		return &pb.KeyResponse{
-			Status: status,
+			Status: pointerutil.StringPtr(status),
 		}, nil
 	}
 
@@ -120,7 +120,7 @@ func (s *Server) Get(c context.Context, r *pb.GetRequest) (*pb.KeyResponse, erro
 		status := "user not found"
 		bugLog.Info("no keys or expired for user")
 		return &pb.KeyResponse{
-			Status: status,
+			Status: pointerutil.StringPtr(status),
 		}, nil
 	}
 
