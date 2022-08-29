@@ -10,23 +10,27 @@ import (
 
 type UserService struct {
 	Key     string `env:"USER_SERVICE_KEY"`
-	Address string `env:"USER_SERVICE_ADDRESS" envDefault:"https://api.k8deploy.dev/v1/user"`
+	Address string `env:"USER_SERVICE_ADDRESS" envDefault:"https://user-service.k8sdeploy"`
 }
 type CompanyService struct {
 	Key     string `env:"COMPANY_SERVICE_KEY"`
-	Address string `env:"COMPANY_SERVICE_ADDRESS" envDefault:"https://api.k8sdeploy.dev/v1/company"`
+	Address string `env:"COMPANY_SERVICE_ADDRESS" envDefault:"https://company-service.k8sdeploy"`
 }
 type HooksService struct {
 	Key     string `env:"HOOKS_SERVICE_KEY"`
-	Address string `env:"HOOKS_SERVICE_ADDRESS" envDefault:"https://hooks.k8sdeploy.dev/v1/"`
+	Address string `env:"HOOKS_SERVICE_ADDRESS" envDefault:"https://hooks-service.k8sdeploy"`
 }
 type BillingService struct {
 	Key     string `env:"BILLING_SERVICE_KEY"`
-	Address string `env:"BILLING_SERVICE_ADDRESS" envDefault:"https://api.k8sdeploy.dev/v1/billing"`
+	Address string `env:"BILLING_SERVICE_ADDRESS" envDefault:"https://billing-service.k8sdeploy"`
 }
 type PermissionService struct {
 	Key     string `env:"PERMISSION_SERVICE_KEY"`
-	Address string `env:"PERMISSION_SERVICE_ADDRESS" envDefault:"https://api.k8sdeploy.dev/v1/permission"`
+	Address string `env:"PERMISSION_SERVICE_ADDRESS" envDefault:"https://permissions-service.k8sdeploy"`
+}
+type Orchestrator struct {
+	Key     string `env:"ORCHESTRATOR_KEY"`
+	Address string `env:"ORCHESTRATOR_ADDRESS" envDefault:"https://orchestrator.k8sdeploy"`
 }
 
 type Services struct {
@@ -35,6 +39,7 @@ type Services struct {
 	HooksService
 	BillingService
 	PermissionService
+	Orchestrator
 }
 
 type Local struct {
@@ -86,7 +91,7 @@ func BuildServiceKey(cfg *Config) error {
 
 // nolint:gocyclo
 func BuildServiceKeys(cfg *Config) error {
-	vaultSecrets, err := cfg.getVaultSecrets("kv/data/retro-board/api-keys")
+	vaultSecrets, err := cfg.getVaultSecrets("kv/data/k8sdeploy/api-keys")
 	if err != nil {
 		return err
 	}
@@ -112,6 +117,8 @@ func BuildServiceKeys(cfg *Config) error {
 			cfg.Local.Services.BillingService.Key = secret.Value
 		case "permission":
 			cfg.Local.Services.PermissionService.Key = secret.Value
+		case "orchestrator":
+			cfg.Local.Services.Orchestrator.Key = secret.Value
 		}
 	}
 
