@@ -42,28 +42,8 @@ spec:
             - name: VAULT_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: backend-vault-token
+                  name: k8sdeploy-vault-token
                   key: token
-            - name: MONGO_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: key-service-secrets
-                  key: MONGO_HOST
-            - name: MONGO_USER
-              valueFrom:
-                secretKeyRef:
-                  name: key-service-secrets
-                  key: MONGO_USER
-            - name: MONGO_PASS
-              valueFrom:
-                secretKeyRef:
-                  name: key-service-secrets
-                  key: MONGO_PASS
-            - name: ONE_PASSWORD_PATH
-              valueFrom:
-                secretKeyRef:
-                  name: key-service-secrets
-                  key: ONE_PASSWORD_PATH
             - name: SERVICE_NAME
               value: key-service
 
