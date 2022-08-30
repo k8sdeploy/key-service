@@ -20,10 +20,14 @@ type UserKey struct {
 	ID      string
 	Created time.Time
 
-	UserService    ServiceKey
-	HooksService   ServiceKey
-	CompanyService ServiceKey
-	BillingService ServiceKey
+	Key    string
+	Secret string
+}
+
+type K8sKey struct {
+	ID     string
+	Key    string
+	Secret string
 }
 
 func NewKey(config *config.Config) *Key {
@@ -45,6 +49,10 @@ func (k *Key) GenerateServiceKey(n int) (string, error) {
 		b[i] = letterRunes[j.Int64()]
 	}
 	return string(b), nil
+}
+
+func (k *Key) GenerateKey(n int) (string, error) {
+	return k.GenerateServiceKey(n)
 }
 
 func (k *Key) GetKeys(n int) (*ResponseItem, error) {

@@ -118,3 +118,93 @@ func (m *Mongo) Create(data DataSet) error {
 
 	return nil
 }
+
+func (m *Mongo) UpsertUser(data UserKey) error {
+	client, err := m.getConnection()
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if err := client.Disconnect(m.CTX); err != nil {
+			bugLog.Info(err)
+		}
+	}()
+
+	_, err = client.
+		Database(m.Config.Mongo.User.Database).
+		Collection(m.Config.Mongo.User.KeysCollection).
+		UpdateOne(
+			m.CTX,
+			map[string]string{"user_id": sanitize.AlphaNumeric(data.ID, false)},
+			bson.D{{Key: "$set", Value: bson.D{
+				{Key: "generated", Value: time.Now().Unix()},
+				{Key: "key", Value: data.Key},
+				{Key: "secret", Value: data.Secret},
+			}}},
+			options.Update().SetUpsert(true))
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Mongo) InsertHooksKey(data K8sKey) error {
+	client, err := m.getConnection()
+	if err != nil {
+		return err
+	}
+	defer func() {
+		if err := client.Disconnect(m.CTX); err != nil {
+			bugLog.Info(err)
+		}
+	}()
+
+	_, err = client.
+		Database(m.Config.Mongo.Hooks.Database).
+		Collection(m.Config.Mongo.Hooks.KeysCollection).
+		UpdateOne(
+			m.CTX,
+			map[string]string{"company_id": sanitize.AlphaNumeric(data.ID, false)},
+			bson.D{{Key: "$set", Value: bson.D{
+				{Key: "generated", Value: time.Now().Unix()},
+				{Key: "key", Value: data.Key},
+				{Key: "secret", Value: data.Secret},
+			}}},
+			options.Update().SetUpsert(true))
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (m *Mongo) ValidateHooksKey(data K8sKey) (bool, error) {
+	client, err := m.getConnection()
+	if err != nil {
+		return false, err
+	}
+	defer func() {
+		if err := client.Disconnect(m.CTX); err != nil {
+			bugLog.Info(err)
+		}
+	}()
+
+	ret, err := client.
+		Database(m.Config.Mongo.Hooks.Database).
+		Collection(m.Config.Mongo.Hooks.KeysCollection).
+		CountDocuments(m.CTX, map[string]string{
+			"company_id": sanitize.AlphaNumeric(data.ID, false),
+			"key":        sanitize.AlphaNumeric(data.Key, false),
+			"secret":     sanitize.AlphaNumeric(data.Secret, false),
+		})
+	if err != nil {
+		return false, err
+	}
+
+	if ret >= 1 {
+		return true, nil
+	}
+
+	return false, nil
+}

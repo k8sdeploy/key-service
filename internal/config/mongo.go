@@ -6,10 +6,18 @@ import (
 	"github.com/caarlos0/env/v6"
 )
 
+type DB struct {
+	Database       string
+	KeysCollection string
+}
+
 type Mongo struct {
 	Host     string `env:"MONGO_HOST" envDefault:"localhost"`
 	Username string `env:"MONGO_USER" envDefault:""`
 	Password string `env:"MONGO_PASS" envDefault:""`
+	User     DB
+	Hooks    DB
+	Agent    DB
 }
 
 func BuildMongo(c *Config) error {
@@ -40,6 +48,14 @@ func BuildMongo(c *Config) error {
 	mongo.Password = kvStrings["password"]
 	mongo.Username = kvStrings["username"]
 	mongo.Host = kvStrings["hostname"]
+
+	mongo.User.Database = kvStrings["user_db"]
+	mongo.User.KeysCollection = kvStrings["user_keys_collection"]
+	mongo.Hooks.Database = kvStrings["hooks_db"]
+	mongo.Hooks.KeysCollection = kvStrings["hooks_keys_collection"]
+	mongo.Agent.Database = kvStrings["agent_db"]
+	mongo.Agent.KeysCollection = kvStrings["agent_keys_collection"]
+
 	c.Mongo = *mongo
 
 	return nil
