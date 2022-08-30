@@ -64,28 +64,7 @@ func BuildLocal(cfg *Config) error {
 	if err := BuildServiceKeys(cfg); err != nil {
 		return bugLog.Errorf("failed to build service keys: %s", err.Error())
 	}
-	if err := BuildServiceKey(cfg); err != nil {
-		return bugLog.Errorf("failed to build service key: %s", err.Error())
-	}
 
-	return nil
-}
-
-func BuildServiceKey(cfg *Config) error {
-	if cfg.Local.OnePasswordKey != "" {
-		return nil
-	}
-
-	onePasswordKeyData, err := cfg.getVaultSecrets(cfg.Local.OnePasswordPath)
-	if err != nil {
-		return err
-	}
-
-	for ik, iv := range onePasswordKeyData {
-		if ik == "password" {
-			cfg.Local.OnePasswordKey = iv.(string)
-		}
-	}
 	return nil
 }
 
