@@ -2,6 +2,7 @@ package key
 
 import (
 	"context"
+
 	"github.com/hashicorp/vault/sdk/helper/pointerutil"
 	"github.com/k8sdeploy/key-service/internal/config"
 	pb "github.com/k8sdeploy/protos/generated/key/v1"
