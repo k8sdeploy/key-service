@@ -182,6 +182,7 @@ func (m *Mongo) InsertHooksKey(data K8sKey) error {
 func (m *Mongo) ValidateHooksKey(data K8sKey) (bool, error) {
 	client, err := m.getConnection()
 	if err != nil {
+		fmt.Printf("validateHooksKey connection error: %s\n", err)
 		return false, err
 	}
 	defer func() {
@@ -199,8 +200,11 @@ func (m *Mongo) ValidateHooksKey(data K8sKey) (bool, error) {
 			"secret":     sanitize.AlphaNumeric(data.Secret, false),
 		})
 	if err != nil {
+		fmt.Printf("validateHooksKey ret err: %+v\n", err)
 		return false, err
 	}
+
+	fmt.Printf("validateHooksKey ret: %d\n", ret)
 
 	if ret >= 1 {
 		return true, nil
