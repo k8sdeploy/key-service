@@ -2,6 +2,7 @@ package key
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/hashicorp/vault/sdk/helper/pointerutil"
 	"github.com/k8sdeploy/key-service/internal/config"
@@ -104,12 +105,14 @@ func (s *Server) CreateHookKeys(c context.Context, r *pb.HooksRequest) (*pb.KeyR
 	k := NewKey(s.Config)
 	hk, err := k.GenerateKey(32)
 	if err != nil {
+		fmt.Printf("error generating hook key: %s\n", err)
 		return &pb.KeyResponse{
 			Status: pointerutil.StringPtr(SystemError),
 		}, err
 	}
 	hs, err := k.GenerateKey(32)
 	if err != nil {
+		fmt.Printf("error generating hook secret: %s\n", err)
 		return &pb.KeyResponse{
 			Status: pointerutil.StringPtr(SystemError),
 		}, err
@@ -122,6 +125,7 @@ func (s *Server) CreateHookKeys(c context.Context, r *pb.HooksRequest) (*pb.KeyR
 
 	m := NewMongo(s.Config)
 	if err := m.InsertHooksKey(d); err != nil {
+		fmt.Printf("error inserting hook key: %s\n", err)
 		return &pb.KeyResponse{
 			Status: pointerutil.StringPtr(SystemError),
 		}, err
@@ -192,6 +196,7 @@ func (s *Server) ValidateHookKey(c context.Context, r *pb.ValidateSystemKeyReque
 		Secret: r.Secret,
 	})
 	if err != nil {
+		fmt.Printf("validate key error: %v\n", err)
 		return &pb.ValidKeyResponse{
 			Valid:  false,
 			Status: pointerutil.StringPtr(SystemError),
@@ -226,12 +231,14 @@ func (s *Server) CreateUserKeys(c context.Context, r *pb.UserRequest) (*pb.KeyRe
 	k := NewKey(s.Config)
 	uk, err := k.GenerateKey(32)
 	if err != nil {
+		fmt.Printf("error generating user key: %s\n", err)
 		return &pb.KeyResponse{
 			Status: pointerutil.StringPtr(SystemError),
 		}, err
 	}
 	us, err := k.GenerateKey(32)
 	if err != nil {
+		fmt.Printf("error generating user secret: %s\n", err)
 		return &pb.KeyResponse{
 			Status: pointerutil.StringPtr(SystemError),
 		}, err
@@ -244,6 +251,7 @@ func (s *Server) CreateUserKeys(c context.Context, r *pb.UserRequest) (*pb.KeyRe
 
 	m := NewMongo(s.Config)
 	if err := m.UpsertUser(d); err != nil {
+		fmt.Printf("error upserting user: %s\n", err)
 		return &pb.KeyResponse{
 			Status: pointerutil.StringPtr(SystemError),
 		}, err
@@ -258,6 +266,7 @@ func (s *Server) CreateUserKeys(c context.Context, r *pb.UserRequest) (*pb.KeyRe
 func (s *Server) ValidateUserKeys(c context.Context, r *pb.ValidateUserKeyRequest) (*pb.ValidKeyResponse, error) {
 	if r.ServiceKey != "" {
 		if valid, _ := s.ValidateServiceKey(r.ServiceKey); !valid {
+			fmt.Printf("invalid service key: %s\n", r.ServiceKey)
 			return &pb.ValidKeyResponse{
 				Valid:  false,
 				Status: pointerutil.StringPtr(InvalidServiceKey),
