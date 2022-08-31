@@ -16,7 +16,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: containers.chewedfeed.com/retro-board/key-service
+          images: containers.chewedfeed.com/k8sdeploy/key-service
           tags: |
             type=semver,pattern={{version}}
             type=semver,pattern={{raw}}
@@ -25,7 +25,7 @@ jobs:
         id: deploy-meta
         uses: docker/metadata-action@v3
         with:
-          images: containers.chewedfeed.com/retro-board/key-service
+          images: containers.chewedfeed.com/k8sdeploy/key-service
           tags: |
             type=semver,pattern={{version}}
       - name: QEMU
