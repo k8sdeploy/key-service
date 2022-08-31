@@ -6,7 +6,7 @@ on:
       - published
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -21,13 +21,6 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{raw}}
             type=sha
-      - name: DeplyMeta
-        id: deploy-meta
-        uses: docker/metadata-action@v3
-        with:
-          images: containers.chewedfeed.com/k8sdeploy/key-service
-          tags: |
-            type=semver,pattern={{version}}
       - name: QEMU
         id: qemu
         uses: docker/setup-qemu-action@v2
@@ -59,6 +52,10 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           push: true
           build-args: SERVICE_NAME=key-service,VERSION=${{ github.ref_name }},BUILD=${{ github.sha }}'
+  deploy:
+    runs-on: ubuntu-latest
+    depends-on: build
+    steps:
       - name: Deploy
         uses: k8sdeploy/github-action@v1
         with:
