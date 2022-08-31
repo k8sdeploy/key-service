@@ -203,6 +203,7 @@ func (s *Server) ValidateHookKey(c context.Context, r *pb.ValidateSystemKeyReque
 		}, err
 	}
 
+	fmt.Printf("validate key: %v\n", valid)
 	return &pb.ValidKeyResponse{
 		Valid: valid,
 	}, nil
