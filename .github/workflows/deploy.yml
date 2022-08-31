@@ -54,6 +54,7 @@ jobs:
           build-args: SERVICE_NAME=key-service,VERSION=${{ github.ref_name }},BUILD=${{ github.sha }}'
   deploy:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       - name: Deploy
         uses: k8sdeploy/github-action@v1
