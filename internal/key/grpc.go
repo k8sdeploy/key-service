@@ -285,6 +285,11 @@ func (s *Server) ValidateUserKeys(c context.Context, r *pb.ValidateUserKeyReques
 }
 
 func (s *Server) ValidateServiceKey(key string) (bool, error) {
+	fmt.Printf("validating service key: %s, hooksService: %+v, orchestratorService: %+v\n",
+		key,
+		s.Config.HooksService,
+		s.Config.Orchestrator)
+
 	if key == s.Config.HooksService.Key ||
 		key == s.Config.Orchestrator.Key {
 		return true, nil
