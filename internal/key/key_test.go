@@ -3,8 +3,8 @@ package key_test
 import (
 	"testing"
 
-	"github.com/retro-board/key-service/internal/config"
-	"github.com/retro-board/key-service/internal/key"
+	"github.com/k8sdeploy/key-service/internal/config"
+	"github.com/k8sdeploy/key-service/internal/key"
 )
 
 func TestKey_GenerateServiceKey(t *testing.T) {

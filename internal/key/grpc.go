@@ -16,19 +16,19 @@ type Server struct {
 
 // Missing
 const (
-	MissingUserId     = "missing user id"
-	MissingCompanyId  = "missing company id"
-	MissingAgentKey   = "missing agent key"
+	MissingUserID    = "missing user id"
+	MissingCompanyID = "missing company id"
+	//	MissingAgentKey   = "missing agent key"
 	MissingServiceKey = "missing service key"
 )
 
 // Status
 const (
 	InvalidServiceKey = "invalid service key"
-	InvalidAgentKey   = "invalid agent key"
-	InvalidHookKey    = "invalid hook key"
-	InvalidUserKey    = "invalid user key"
-	SystemError       = "system error"
+	//	InvalidAgentKey   = "invalid agent key"
+	//	InvalidHookKey    = "invalid hook key"
+	//	InvalidUserKey    = "invalid user key"
+	SystemError = "system error"
 )
 
 // Agent
@@ -98,7 +98,7 @@ func (s *Server) CreateHookKeys(c context.Context, r *pb.HooksRequest) (*pb.KeyR
 
 	if r.CompanyId == "" {
 		return &pb.KeyResponse{
-			Status: pointerutil.StringPtr(MissingCompanyId),
+			Status: pointerutil.StringPtr(MissingCompanyID),
 		}, nil
 	}
 
@@ -187,7 +187,7 @@ func (s *Server) ValidateHookKey(c context.Context, r *pb.ValidateSystemKeyReque
 	if r.CompanyId == "" {
 		return &pb.ValidKeyResponse{
 			Valid:  false,
-			Status: pointerutil.StringPtr(MissingCompanyId),
+			Status: pointerutil.StringPtr(MissingCompanyID),
 		}, nil
 	}
 	valid, err := NewMongo(s.Config).ValidateHooksKey(K8sKey{
@@ -225,7 +225,7 @@ func (s *Server) CreateUserKeys(c context.Context, r *pb.UserRequest) (*pb.KeyRe
 
 	if r.UserId == "" {
 		return &pb.KeyResponse{
-			Status: pointerutil.StringPtr(MissingUserId),
+			Status: pointerutil.StringPtr(MissingUserID),
 		}, nil
 	}
 
@@ -299,7 +299,7 @@ func (s *Server) ValidateServiceKey(key string) (bool, error) {
 	return false, nil
 }
 
-//func (s *Server) CreateAgentKeys(c context.Context, r *pb.CreateRequest) (*pb.KeyResponse, error) {
+// func (s *Server) CreateAgentKeys(c context.Context, r *pb.CreateRequest) (*pb.KeyResponse, error) {
 //	if r.UserId == "" {
 //		bugLog.Info(MissingUserID)
 //		return &pb.KeyResponse{
@@ -361,9 +361,9 @@ func (s *Server) ValidateServiceKey(key string) (bool, error) {
 //		Company: keys.Company,
 //		Billing: keys.Billing,
 //	}, nil
-//}
+// }
 //
-//func (s *Server) Get(c context.Context, r *pb.GetRequest) (*pb.KeyResponse, error) {
+// func (s *Server) Get(c context.Context, r *pb.GetRequest) (*pb.KeyResponse, error) {
 //	if r.UserId == "" {
 //		bugLog.Info(MissingUserID)
 //		return &pb.KeyResponse{
@@ -410,10 +410,10 @@ func (s *Server) ValidateServiceKey(key string) (bool, error) {
 //		Billing:     keys.Keys.BillingService,
 //		Permissions: keys.Keys.PermissionsService,
 //	}, nil
-//}
+// }
 //
 ////nolint:gocyclo
-//func (s *Server) Validate(c context.Context, r *pb.ValidateRequest) (*pb.ValidResponse, error) {
+// func (s *Server) Validate(c context.Context, r *pb.ValidateRequest) (*pb.ValidResponse, error) {
 //	if r.UserId == "" {
 //		bugLog.Info(MissingUserID)
 //		return &pb.ValidResponse{
@@ -474,4 +474,4 @@ func (s *Server) ValidateServiceKey(key string) (bool, error) {
 //	return &pb.ValidResponse{
 //		Valid: false,
 //	}, nil
-//}
+// }

@@ -65,7 +65,7 @@ func TestServiceKey(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := config.BuildServiceKey(tt.cfg); err != nil {
+			if err := config.BuildServiceKeys(tt.cfg); err != nil {
 				t.Errorf("BuildServiceKey: %v", err)
 			}
 			if tt.cfg.Local.OnePasswordKey != tt.want {

@@ -25,11 +25,11 @@ build: build-images
 
 .PHONY: deploy
 deploy:
-	kubectl set image deployment/${SERVICE_NAME} ${SERVICE_NAME}=containers.chewedfeed.com/k8sdeploy/${SERVICE_NAME}:${GIT_COMMIT} --namespace=retro-board
+	kubectl set image deployment/${SERVICE_NAME} ${SERVICE_NAME}=containers.chewedfeed.com/k8sdeploy/${SERVICE_NAME}:${GIT_COMMIT} --namespace=k8sdeploy
 
 .PHONY: deploy-latest
 deploy-latest:
-	kubectl set image deployment/${SERVICE_NAME} ${SERVICE_NAME}=containers.chewedfeed.com/k8sdeploy/${SERVICE_NAME}:latest --namespace=retro-board
+	kubectl set image deployment/${SERVICE_NAME} ${SERVICE_NAME}=containers.chewedfeed.com/k8sdeploy/${SERVICE_NAME}:latest --namespace=k8sdeploy
 
 .PHONY: build-deploy
 build-deploy: build publish-images deploy

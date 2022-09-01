@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"net/http"
+	"time"
 
 	bugLog "github.com/bugfixes/go-bugfixes/logs"
 	"github.com/go-chi/chi/v5"
@@ -80,7 +81,15 @@ func startHTTP(port int, errChan chan error) {
 	r.Use(middleware.RequestID)
 	r.Get("/health", healthcheck.HTTP)
 	r.Get("/probe", probe.HTTP)
-	if err := http.ListenAndServe(p, r); err != nil {
-		errChan <- bugLog.Errorf("port failed: %+v", err)
+
+	srv := &http.Server{
+		Addr:         p,
+		Handler:      r,
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 10 * time.Second,
+		IdleTimeout:  10 * time.Second,
+	}
+	if err := srv.ListenAndServe(); err != nil {
+		errChan <- bugLog.Errorf("failed to start http: %v", err)
 	}
 }

@@ -46,6 +46,13 @@ func GetVaultSecrets(vaultAddress, vaultToken, secretPath string) (map[string]in
 }
 
 func (c *Config) getVaultSecrets(secretPath string) (map[string]interface{}, error) {
+	if c.Vault.Address == "" {
+		return nil, fmt.Errorf("vault address not set")
+	}
+	if c.Vault.Token == "" {
+		return nil, fmt.Errorf("vault token not set")
+	}
+
 	return GetVaultSecrets(c.Vault.Address, c.Vault.Token, secretPath)
 }
 
