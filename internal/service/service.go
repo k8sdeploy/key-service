@@ -83,11 +83,12 @@ func startHTTP(port int, errChan chan error) {
 	r.Get("/probe", probe.HTTP)
 
 	srv := &http.Server{
-		Addr:         p,
-		Handler:      r,
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 10 * time.Second,
-		IdleTimeout:  10 * time.Second,
+		Addr:              p,
+		Handler:           r,
+		ReadTimeout:       5 * time.Second,
+		ReadHeaderTimeout: 5 * time.Second,
+		WriteTimeout:      10 * time.Second,
+		IdleTimeout:       10 * time.Second,
 	}
 	if err := srv.ListenAndServe(); err != nil {
 		errChan <- bugLog.Errorf("failed to start http: %v", err)
