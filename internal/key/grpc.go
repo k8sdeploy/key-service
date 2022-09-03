@@ -84,7 +84,7 @@ func (s *Server) ValidateAgentKey(c context.Context, r *pb.ValidateSystemKeyRequ
 	}
 
 	m := NewMongo(s.Config)
-	valid, err := m.ValidateAgentKey(k)
+	valid, err := m.ValidateAgentKey(&k)
 	if err != nil {
 		return &pb.ValidKeyResponse{
 			Status: pointerutil.StringPtr(SystemError),

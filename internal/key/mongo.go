@@ -196,9 +196,9 @@ func (m *Mongo) ValidateHooksKey(data K8sKey) (bool, error) {
 		Database(m.Config.Mongo.Hooks.Database).
 		Collection(m.Config.Mongo.Hooks.KeysCollection).
 		CountDocuments(m.CTX, map[string]string{
-			"company_id": sanitize.AlphaNumeric(data.ID, false),
-			"key":        sanitize.AlphaNumeric(data.Key, false),
-			"secret":     sanitize.AlphaNumeric(data.Secret, false),
+			"company_id": data.ID,
+			"key":        data.Key,
+			"secret":     data.Secret,
 		})
 	if err != nil {
 		fmt.Printf("validateHooksKey ret err: %+v\n", err)
@@ -214,7 +214,7 @@ func (m *Mongo) ValidateHooksKey(data K8sKey) (bool, error) {
 	return false, nil
 }
 
-func (m *Mongo) ValidateAgentKey(data K8sKey) (bool, error) {
+func (m *Mongo) ValidateAgentKey(data *K8sKey) (bool, error) {
 	client, err := m.getConnection()
 	if err != nil {
 		fmt.Printf("validateAgentKey connection error: %s\n", err)
@@ -230,9 +230,9 @@ func (m *Mongo) ValidateAgentKey(data K8sKey) (bool, error) {
 		Database(m.Config.Mongo.Agent.Database).
 		Collection(m.Config.Mongo.Agent.KeysCollection).
 		CountDocuments(m.CTX, map[string]string{
-			"company_id": sanitize.AlphaNumeric(data.ID, false),
-			"key":        sanitize.AlphaNumeric(data.Key, false),
-			"secret":     sanitize.AlphaNumeric(data.Secret, false),
+			"company_id":   data.ID,
+			"agent_key":    data.Key,
+			"agent_secret": data.Secret,
 		})
 	if err != nil {
 		fmt.Printf("validateAgentKey ret err: %+v\n", err)
@@ -241,9 +241,5 @@ func (m *Mongo) ValidateAgentKey(data K8sKey) (bool, error) {
 
 	fmt.Printf("validateAgentKey ret: %d\n", ret)
 
-	if ret >= 1 {
-		return true, nil
-	}
-
-	return false, nil
+	return ret >= 1, nil
 }
