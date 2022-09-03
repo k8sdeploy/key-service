@@ -77,8 +77,22 @@ func (s *Server) ValidateAgentKey(c context.Context, r *pb.ValidateSystemKeyRequ
 		}, nil
 	}
 
+	k := K8sKey{
+		ID:     r.CompanyId,
+		Key:    r.Key,
+		Secret: r.Secret,
+	}
+
+	m := NewMongo(s.Config)
+	valid, err := m.ValidateAgentKey(k)
+	if err != nil {
+		return &pb.ValidKeyResponse{
+			Status: pointerutil.StringPtr(SystemError),
+		}, err
+	}
+
 	return &pb.ValidKeyResponse{
-		Valid: false,
+		Valid: valid,
 	}, nil
 }
 

@@ -36,6 +36,7 @@ type DataSet struct {
 		CompanyService     string `json:"company_service" bson:"company_service"`
 		BillingService     string `json:"billing_service" bson:"billing_service"`
 		PermissionsService string `json:"permissions_service" bson:"permissions_service"`
+		Orchestrator       string `json:"orchestrator" bson:"orchestrator"`
 	} `json:"keys" bson:"keys"`
 }
 
@@ -205,6 +206,40 @@ func (m *Mongo) ValidateHooksKey(data K8sKey) (bool, error) {
 	}
 
 	fmt.Printf("validateHooksKey ret: %d\n", ret)
+
+	if ret >= 1 {
+		return true, nil
+	}
+
+	return false, nil
+}
+
+func (m *Mongo) ValidateAgentKey(data K8sKey) (bool, error) {
+	client, err := m.getConnection()
+	if err != nil {
+		fmt.Printf("validateAgentKey connection error: %s\n", err)
+		return false, err
+	}
+	defer func() {
+		if err := client.Disconnect(m.CTX); err != nil {
+			bugLog.Info(err)
+		}
+	}()
+
+	ret, err := client.
+		Database(m.Config.Mongo.Agent.Database).
+		Collection(m.Config.Mongo.Agent.KeysCollection).
+		CountDocuments(m.CTX, map[string]string{
+			"company_id": sanitize.AlphaNumeric(data.ID, false),
+			"key":        sanitize.AlphaNumeric(data.Key, false),
+			"secret":     sanitize.AlphaNumeric(data.Secret, false),
+		})
+	if err != nil {
+		fmt.Printf("validateAgentKey ret err: %+v\n", err)
+		return false, err
+	}
+
+	fmt.Printf("validateAgentKey ret: %d\n", ret)
 
 	if ret >= 1 {
 		return true, nil

@@ -11,7 +11,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/hashicorp/vault/api v1.7.2
 	github.com/hashicorp/vault/sdk v0.5.3
-	github.com/k8sdeploy/protos v0.0.6
+	github.com/k8sdeploy/protos v0.1.5
 	github.com/keloran/go-healthcheck v1.2.0
 	github.com/keloran/go-probe v1.0.0
 	github.com/mrz1836/go-sanitize v1.1.5
@@ -77,7 +77,7 @@ require (
 	golang.org/x/text v0.3.7 // indirect
 	golang.org/x/time v0.0.0-20220722155302-e5dcc9cfc0b9 // indirect
 	golang.org/x/xerrors v0.0.0-20220411194840-2f41105eb62f // indirect
-	google.golang.org/genproto v0.0.0-20220829175752-36a9c930ecbf // indirect
+	google.golang.org/genproto v0.0.0-20220902135211-223410557253 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
 )

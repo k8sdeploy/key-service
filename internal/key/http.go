@@ -12,11 +12,12 @@ import (
 type ResponseItem struct {
 	Status string `json:"status"`
 
-	User        string `json:"user_service,omitempty"`
-	Hooks       string `json:"hooks_service,omitempty"`
-	Company     string `json:"company_service,omitempty"`
-	Billing     string `json:"billing_service,omitempty"`
-	Permissions string `json:"permissions,omitempty"`
+	User         string `json:"user_service,omitempty"`
+	Hooks        string `json:"hooks_service,omitempty"`
+	Company      string `json:"company_service,omitempty"`
+	Billing      string `json:"billing_service,omitempty"`
+	Permissions  string `json:"permissions,omitempty"`
+	Orchestrator string `json:"orchestrator,omitempty"`
 }
 
 func jsonResponse(w http.ResponseWriter, status int, data interface{}) {
@@ -67,12 +68,14 @@ func (k Key) CreateHandler(w http.ResponseWriter, r *http.Request) {
 			CompanyService     string `json:"company_service" bson:"company_service"`
 			BillingService     string `json:"billing_service" bson:"billing_service"`
 			PermissionsService string `json:"permissions_service" bson:"permissions_service"`
+			Orchestrator       string `json:"orchestrator" bson:"orchestrator"`
 		}{
 			UserService:        keys.User,
 			HooksService:       keys.Hooks,
 			CompanyService:     keys.Company,
 			BillingService:     keys.Billing,
 			PermissionsService: keys.Permissions,
+			Orchestrator:       keys.Orchestrator,
 		},
 	}); err != nil {
 		bugLog.Info(err)
