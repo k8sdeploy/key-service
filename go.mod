@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/bugfixes/go-bugfixes v0.7.1
-	github.com/caarlos0/env/v6 v6.10.0
+	github.com/caarlos0/env/v6 v6.10.1
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-kit/log v0.2.1
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
