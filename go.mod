@@ -8,14 +8,14 @@ require (
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-kit/log v0.2.1
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
-	github.com/hashicorp/vault/api v1.8.0
-	github.com/hashicorp/vault/sdk v0.6.0
+	github.com/hashicorp/vault/api v1.7.2
+	github.com/hashicorp/vault/sdk v0.5.3
 	github.com/k8sdeploy/protos v0.1.5
 	github.com/keloran/go-healthcheck v1.2.0
 	github.com/keloran/go-probe v1.0.0
 	github.com/mrz1836/go-sanitize v1.1.5
-	go.mongodb.org/mongo-driver v1.10.3
-	google.golang.org/grpc v1.50.0
+	go.mongodb.org/mongo-driver v1.10.2
+	google.golang.org/grpc v1.49.0
 )
 
 require (
