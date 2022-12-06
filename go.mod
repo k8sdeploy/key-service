@@ -3,7 +3,7 @@ module github.com/k8sdeploy/key-service
 go 1.18
 
 require (
-	github.com/bugfixes/go-bugfixes v0.7.1
+	github.com/bugfixes/go-bugfixes v0.8.4
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/go-chi/chi/v5 v5.0.7
 	github.com/go-kit/log v0.2.1
@@ -64,7 +64,6 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/rogpeppe/go-internal v1.8.1 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
-	github.com/stretchr/objx v0.2.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.1.1 // indirect
 	github.com/xdg-go/stringprep v1.0.3 // indirect
