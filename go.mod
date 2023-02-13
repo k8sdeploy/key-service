@@ -9,7 +9,7 @@ require (
 	github.com/go-kit/log v0.2.1
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
 	github.com/hashicorp/vault/api v1.8.3
-	github.com/hashicorp/vault/sdk v0.7.0
+	github.com/hashicorp/vault/sdk v0.8.1
 	github.com/k8sdeploy/protos v0.1.16
 	github.com/keloran/go-healthcheck v1.2.0
 	github.com/keloran/go-probe v1.0.0
@@ -34,6 +34,7 @@ require (
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
 	github.com/hashicorp/go-hclog v1.3.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
+	github.com/hashicorp/go-kms-wrapping/v2 v2.0.7 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/go-plugin v1.4.5 // indirect
 	github.com/hashicorp/go-retryablehttp v0.7.1 // indirect
@@ -49,7 +50,6 @@ require (
 	github.com/hashicorp/yamux v0.1.1 // indirect
 	github.com/jhump/protoreflect v1.6.1 // indirect
 	github.com/klauspost/compress v1.15.9 // indirect
-	github.com/kr/pretty v0.3.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
@@ -61,14 +61,13 @@ require (
 	github.com/oklog/run v1.1.0 // indirect
 	github.com/pierrec/lz4 v2.6.1+incompatible // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/rogpeppe/go-internal v1.8.1 // indirect
 	github.com/ryanuber/go-glob v1.0.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.1.1 // indirect
 	github.com/xdg-go/stringprep v1.0.3 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20201027041543-1326539a0a0a // indirect
 	go.uber.org/atomic v1.10.0 // indirect
-	golang.org/x/crypto v0.0.0-20220829220503-c86fa9a7ed90 // indirect
+	golang.org/x/crypto v0.5.0 // indirect
 	golang.org/x/net v0.5.0 // indirect
 	golang.org/x/sync v0.0.0-20220819030929-7fc1605a5dde // indirect
 	golang.org/x/sys v0.4.0 // indirect
