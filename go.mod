@@ -8,7 +8,7 @@ require (
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/go-kit/log v0.2.1
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0
-	github.com/hashicorp/vault/api v1.9.0
+	github.com/hashicorp/vault/api v1.9.1
 	github.com/hashicorp/vault/sdk v0.8.1
 	github.com/k8sdeploy/protos v0.1.16
 	github.com/keloran/go-healthcheck v1.2.0
@@ -49,7 +49,7 @@ require (
 	github.com/xdg-go/scram v1.1.1 // indirect
 	github.com/xdg-go/stringprep v1.0.3 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20201027041543-1326539a0a0a // indirect
-	golang.org/x/crypto v0.5.0 // indirect
+	golang.org/x/crypto v0.6.0 // indirect
 	golang.org/x/net v0.7.0 // indirect
 	golang.org/x/sync v0.0.0-20220819030929-7fc1605a5dde // indirect
 	golang.org/x/sys v0.5.0 // indirect
